@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<config>
+    <!-- Объявление модуля: Начало -->
+    <modules>
+        <Magentotutorial_Weblog>
+            <version>0.2.0</version>
+        </Magentotutorial_Weblog>
+    </modules>
+    <!-- Объявление модуля: Конец -->
+    <!-- ... -->
+    <frontend>
+        <!-- Создание роутинга: Начало -->
+        <routers>
+            <weblog>
+                <use>standard</use>
+                <args>
+                    <module>Magentotutorial_Weblog</module>
+                    <frontName>weblog</frontName>
+                </args>
+            </weblog>
+        </routers>
+        <!-- Создание роутинга: Конец -->
+    </frontend>
+    <!-- ... -->
+    <global>
+        <models>
+            <!-- Объявление модели: Начало -->
+            <weblog>
+                <class>Magentotutorial_Weblog_Model</class>
+                <resourceModel>weblog_resource</resourceModel>
+            </weblog>
+            <!-- Объявление модели: Конец -->
+            <!-- Объявление ресурса модели: Начало -->
+            <weblog_resource>
+                <class>Magentotutorial_Weblog_Model_Resource</class>
+                <entities>
+                    <blogpost>
+                        <table>blog_posts</table>
+                    </blogpost>
+                </entities>
+            </weblog_resource>
+            <!-- Объявление ресурса модели: Конец -->
+        </models>
+        <!-- Объявление установочного ресурса: Начало -->
+        <resources>
+            <weblog_setup>
+                <setup>
+                    <module>Magentotutorial_Weblog</module>
+                    <class>Magentotutorial_Weblog_Model_Resource_Setup</class>
+                </setup>
+            </weblog_setup>
+        </resources>
+        <!-- Объявление установочного ресурса: Конец -->
+    </global>
+</config>

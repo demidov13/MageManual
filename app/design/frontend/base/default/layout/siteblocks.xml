@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<layout version="1.0.0">
+    <siteblocks_index_index>
+        <reference name="head">
+            <action method="setTitle">
+                <title>My Siteblocks</title>
+            </action>
+        </reference>
+        <reference name="content">
+            <block name="siteblocks.list" as="siteblocks" type="siteblocks/list" template="siteblocks/list.phtml"/>
+        </reference>
+    </siteblocks_index_index>
+</layout>
