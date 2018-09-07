@@ -1,8 +1,8 @@
-<?xml version="1.0"?>
+<?xml version="1.0" ?>
 <config>
     <modules>
         <IGN_Siteblocks>
-            <version>1.0.0</version>
+            <version>1.0.1</version>
         </IGN_Siteblocks>
     </modules>
     <global>
@@ -39,6 +39,17 @@
         </helpers>
     </global>
     <frontend>
+        <events>
+            <checkout_cart_product_add_after>
+                <observers>
+                    <siteblocks>
+                        <class>siteblocks/observer</class>
+                        <method>checkout_cart_product_add_after</method>
+                        <type>model</type>
+                    </siteblocks>
+                </observers>
+            </checkout_cart_product_add_after>
+        </events>
         <layout>
             <updates>
                 <siteblocks module="siteblocks">
@@ -55,6 +66,15 @@
                 </args>
             </siteblocks>
         </routers>
+        <translate>
+            <modules>
+                <IGN_Siteblocks>
+                    <files>
+                        <default>IGN_Siteblocks.csv</default>
+                    </files>
+                </IGN_Siteblocks>
+            </modules>
+        </translate>
     </frontend>
     <admin>
         <routers>
@@ -68,11 +88,23 @@
         </routers>
     </admin>
     <default>
-        <siteblocks>
-            <settings>
-                <enabled>1</enabled>
-                <block_count>10</block_count>
-            </settings>
-        </siteblocks>
+            <siteblocks>
+                <settings>
+                    <enabled>1</enabled>
+                    <block_count>10</block_count>
+                </settings>
+            </siteblocks>
     </default>
+    <crontab>
+        <jobs>
+            <siteblocks_clear_cache>
+                <schedule>
+                    <cron_expr>*/10 * * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>siteblocks/cron::siteblocks_clear_cache</model>
+                </run>
+            </siteblocks_clear_cache>
+        </jobs>
+    </crontab>
 </config>

@@ -1,8 +1,9 @@
 <?php
+
 class IGN_Siteblocks_Model_Source_Status
 {
-    const ENABLED = '1';
-    const DISABLED = '0';
+    const ENABLED = 1;
+    const DISABLED = 0;
 
     /**
      * Options getter
