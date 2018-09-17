@@ -1,8 +1,8 @@
-<?xml version="1.0"?>
+<?xml version="1.0" ?>
 <config>
     <modules>
         <IGN_Siteblocks>
-            <active>True</active>
+            <active>true</active>
             <codePool>local</codePool>
         </IGN_Siteblocks>
     </modules>

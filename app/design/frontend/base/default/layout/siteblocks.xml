@@ -10,4 +10,19 @@
             <block name="siteblocks.list" as="siteblocks" type="siteblocks/list" template="siteblocks/list.phtml"/>
         </reference>
     </siteblocks_index_index>
+
+    <catalog_category_default>
+        <reference name="left">
+            <block name="siteblocks.list" as="siteblocks" type="siteblocks/list" template="siteblocks/list.phtml"/>
+        </reference>
+        <reference name="right">
+            <block name="siteblocks.list" as="siteblocks" type="siteblocks/list" template="siteblocks/list.phtml"/>
+        </reference>
+    </catalog_category_default>
+
+    <catalog_product_view>
+        <reference name="product.info.extrahint">
+            <block name="siteblocks.list" before="-" as="siteblocks" type="siteblocks/list" template="siteblocks/list.phtml"/>
+        </reference>
+    </catalog_product_view>
 </layout>
