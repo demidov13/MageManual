@@ -22,6 +22,7 @@ class IGN_Siteblocks_Adminhtml_SiteblocksController extends Mage_Adminhtml_Contr
             Mage::registry('siteblocks_block')->setData($blockObject);
         }
         $this->loadLayout();
+        //$this->_addLeft($this->getLayout()->createBlock('siteblocks/adminhtml_siteblocks_edit_tabs'));
         $this->_addContent($this->getLayout()->createBlock('siteblocks/adminhtml_siteblocks_edit'));
         $this->renderLayout();
     }
@@ -61,14 +62,33 @@ class IGN_Siteblocks_Adminhtml_SiteblocksController extends Mage_Adminhtml_Contr
     {
         try {
             $id = $this->getRequest()->getParam('block_id');
+            /** @var IGN_Siteblocks_Model_Block $block */
             $block = Mage::getModel('siteblocks/block')->load($id);
             /*$block
                 ->setTitle($this->getRequest()->getParam('title'))
                 ->setContent($this->getRequest()->getParam('content'))
                 ->setBlockStatus($this->getRequest()->getParam('block_status'))
                 ->save();*/
+            $data = $this->getRequest()->getParams();
+
+            $links = $this->getRequest()->getPost('links', array());
+
+            if (array_key_exists('products', $links)) {
+                $selectedProducts = Mage::helper('adminhtml/js')->decodeGridSerializedInput($links['products']);
+                $products = array();
+
+                foreach($selectedProducts as $product => $position) {
+                    $products[$product] = isset($position['position']) ? $position['position'] : $product;
+                }
+                $data['products'] = $products;
+            }
+
+            if (isset($data['rule']['conditions'])) {
+                $data['conditions'] = $data['rule']['conditions'];
+            }
+            unset($data['rule']);
             $block
-                ->setData($this->getRequest()->getParams());
+                ->loadPost($data);
             $this->_uploadFile('image',$block);
             $block
                 ->setCreatedAt(Mage::app()->getLocale()->date())
@@ -141,5 +161,17 @@ class IGN_Siteblocks_Adminhtml_SiteblocksController extends Mage_Adminhtml_Contr
 
         return $this->_redirect('*/*/');
 
+    }
+
+    public function productsAction()
+    {
+        $this->loadLayout()
+            ->renderLayout();
+    }
+
+    public function productsgridAction()
+    {
+        $this->loadLayout()
+            ->renderLayout();
     }
 }

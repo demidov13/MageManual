@@ -28,53 +28,6 @@ class IGN_Siteblocks_Block_Adminhtml_Siteblocks_Edit_Form extends Mage_Adminhtml
 
         $form->setHtmlIdPrefix('block_');
 
-        $fieldset = $form->addFieldset('base_fieldset',
-            array(
-                'legend'=>Mage::helper('siteblocks')->__('General Information'),
-                'class' => 'fieldset-wide')
-        );
-
-        if ($model->getBlockId()) {
-            $fieldset->addField('block_id', 'hidden', array(
-                'name' => 'block_id',
-            ));
-        }
-
-        $fieldset->addField('title', 'text', array(
-            'name'      => 'title',
-            'label'     => Mage::helper('siteblocks')->__('Block Title'),
-            'title'     => Mage::helper('siteblocks')->__('Block Title'),
-            'required'  => true,
-        ));
-
-        //$fieldset->addType('myimage','IGN_Siteblocks_Block_Adminhtml_Siteblocks_Edit_Renderer_Myimage');
-
-        $fieldset->addField('image', 'myimage', array(
-            'name'      => 'image',
-            'label'     => Mage::helper('siteblocks')->__('Image'),
-            'title'     => Mage::helper('siteblocks')->__('Image'),
-            'required'  => true,
-        ));
-
-
-
-        $fieldset->addField('block_status', 'select', array(
-            'label'     => Mage::helper('siteblocks')->__('Status'),
-            'title'     => Mage::helper('siteblocks')->__('Status'),
-            'name'      => 'block_status',
-            'required'  => true,
-            'options'   => Mage::getModel('siteblocks/source_status')->toArray(),
-        ));
-
-
-        $fieldset->addField('content', 'textarea', array(
-            'name'      => 'content',
-            'label'     => Mage::helper('siteblocks')->__('Content'),
-            'title'     => Mage::helper('siteblocks')->__('Content'),
-            'style'     => 'height:36em',
-            'required'  => true,
-
-        ));
 
         $form->setValues($model->getData());
         $form->setUseContainer(true);
@@ -83,4 +36,11 @@ class IGN_Siteblocks_Block_Adminhtml_Siteblocks_Edit_Form extends Mage_Adminhtml
         return parent::_prepareForm();
     }
 
+    protected function _prepareLayout()
+    {
+        parent::_prepareLayout();
+        if (Mage::getSingleton('cms/wysiwyg_config')->isEnabled()) {
+            $this->getLayout()->getBlock('head')->setCanLoadTinyMce(true);
+        }
+    }
 }

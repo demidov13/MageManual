@@ -2,7 +2,7 @@
 <config>
     <modules>
         <IGN_Siteblocks>
-            <version>1.0.1</version>
+            <version>1.0.3</version>
         </IGN_Siteblocks>
     </modules>
     <global>
@@ -76,6 +76,15 @@
             </modules>
         </translate>
     </frontend>
+    <adminhtml>
+        <layout>
+            <updates>
+                <siteblocks module="siteblocks">
+                    <file>siteblocks.xml</file>
+                </siteblocks>
+            </updates>
+        </layout>
+    </adminhtml>
     <admin>
         <routers>
             <adminhtml>
