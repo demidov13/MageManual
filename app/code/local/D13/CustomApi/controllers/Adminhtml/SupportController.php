@@ -1,7 +1,9 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: goodk
- * Date: 03.10.2018
- * Time: 19:06
- */
+
+class D13_CustomApi_Adminhtml_SupportController extends Mage_Adminhtml_Controller_Action
+{
+    public function indexAction()
+    {
+        echo "hello";
+    }
+}

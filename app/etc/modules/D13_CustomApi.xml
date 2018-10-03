@@ -1,1 +1,9 @@
 <?xml version="1.0"?>
+<config>
+    <modules>
+        <D13_CustomApi>
+            <active>true</active>
+            <codePool>local</codePool>
+        </D13_CustomApi>
+    </modules>
+</config>
