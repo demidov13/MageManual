@@ -1,0 +1,117 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Demidov_CustomApi>
+            <version>1.0.0</version>
+        </Demidov_CustomApi>
+    </modules>
+    <global>
+        <helpers>
+            <CustomApi>
+                <class>Demidov_CustomApi_Helper</class>
+            </CustomApi>
+        </helpers>
+        <blocks>
+            <CustomApi>
+                <class>Demidov_CustomApi_Block</class>
+            </CustomApi>
+        </blocks>
+        <models>
+            <CustomApi>
+                <class>Demidov_CustomApi_Model</class>
+                <resourceModel>CustomApi_resource</resourceModel>
+            </CustomApi>
+            <CustomApi_resource>
+                <class>Demidov_CustomApi_Model_Resource</class>
+                <entities>
+                    <support_log>
+                        <table>customapi_support_log</table>
+                    </support_log>
+                    <token_bearer>
+                        <table>customapi_token_bearer</table>
+                    </token_bearer>
+                </entities>
+            </CustomApi_resource>
+        </models>
+        <resources>
+            <CustomApi_setup>
+                <setup>
+                    <module>Demidov_CustomApi</module>
+                </setup>
+            </CustomApi_setup>
+        </resources>
+        <!-- Custom API default config  -->
+        <customapi_mail_settings>
+            <email_recipient>itdemidov@ukr.net</email_recipient>
+        </customapi_mail_settings>
+    </global>
+    <admin>
+        <routers>
+            <CustomApi>
+                <use>admin</use>
+                <args>
+                    <module>Demidov_CustomApi</module>
+                    <frontName>custom_api</frontName>
+                </args>
+            </CustomApi>
+        </routers>
+    </admin>
+    <adminhtml>
+        <menu>
+            <CustomApi module="CustomApi">
+                <title>Custom API</title>
+                <sort_order>80</sort_order>
+                <children>
+                    <support module="CustomApi">
+                        <title>Support</title>
+                        <sort_order>10</sort_order>
+                        <action>custom_api/adminhtml_support/index</action>
+                    </support>
+                </children>
+            </CustomApi>
+        </menu>
+    </adminhtml>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <CustomApi>
+                                        <title>Custom API</title>
+                                    </CustomApi>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                    <CustomApi>
+                        <children>
+                            <Version1>
+                                <title>Version 1</title>
+                                <sort_order>1</sort_order>
+                            </Version1>
+                            <Version2>
+                                <title>Version 2</title>
+                                <sort_order>2</sort_order>
+                            </Version2>
+                        </children>
+                    </CustomApi>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+    <crontab>
+        <jobs>
+            <api_support_clear_log>
+                <schedule>
+                    <cron_expr>0 0 * * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>CustomApi/cron::api_support_clear_log</model>
+                </run>
+            </api_support_clear_log>
+        </jobs>
+    </crontab>
+</config>
