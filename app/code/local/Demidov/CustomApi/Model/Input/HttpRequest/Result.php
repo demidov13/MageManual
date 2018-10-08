@@ -21,12 +21,11 @@ class Demidov_CustomApi_Model_Input_HttpRequest_Result
 
     public function hasError()
     {
+        if (!$this->fault) return false;
 
-    }
-
-    public function isFault()
-    {
-        return $this->fault;
+        $entityError = Mage::getModel('CustomApi/Input_HttpRequest_Result_Error');
+        $message = $entityError->checkErrors($this->errors);
+        return $message;
     }
 
     public function setFormat($format)

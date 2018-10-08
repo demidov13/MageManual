@@ -9,20 +9,30 @@ class Demidov_CustomApi_IndexController extends Mage_Core_Controller_Front_Actio
                 ->create('Demidov_CustomApi_Model_Input_HttpRequest');
             $validator = Mage::getModel('CustomApi/Input_HttpRequestValidator_HttpRequestValidatorFactory')
                 ->create('Demidov_CustomApi_Model_Input_HttpRequestValidator', $request);
-            $httpResult = $validator->validate();
-            return var_dump($httpResult);
-            if ($httpResult->isFault()) {
 
+            $httpResult = $validator->validate();
+
+            if ($message = $httpResult->hasError()) {
+                // TODO: ErrorOutputFactory
+                return var_dump($message);
             }
 
+            $package = Mage::getModel('CustomApi/Input_HttpRequest_PackageFactory')
+                ->create('Demidov_CustomApi_Model_Package', $request, $httpResult->getFormat());
+
+            $auth = Mage::getModel('CustomApi/authentication');
+            if (!$auth->check($package->getToken())) {
+                // TODO: Output
+                return var_dump($auth);
+            }
+
+            $set = Mage::getModel('CustomApi/Command_Set_SetFactory')
+                ->create('Demidov_CustomApi_Model_Command_Set', $package->getVersion());
+            return var_dump($set);
+
         } catch (Exception $exception) {
-            ob_end_clean();
-            return $exception->getMessage();
+            return $this->getResponse()->setBody($exception->getMessage());
         }
-
-
-//        return var_dump($res);
-
     }
 
     public function dispatch($action)

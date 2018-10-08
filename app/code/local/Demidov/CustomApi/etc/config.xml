@@ -54,6 +54,58 @@
         <customapi_mail_settings>
             <email_recipient>itdemidov@ukr.net</email_recipient>
         </customapi_mail_settings>
+        <customapi_config>
+            <v1>
+                <priceIncrease>
+                    <validators>
+                        <className>Demidov_CustomApi_Model_Validator_ParamIsInt</className>
+                    </validators>
+                    <handler>
+                        <className>Demidov_CustomApi_Model_ProductApi_FixPriceIncrease</className>
+                        <properties>
+                            <integer>sum</integer>
+                        </properties>
+                    </handler>
+                </priceIncrease>
+                <productDelete>
+                    <validators>
+                        <className>Demidov_CustomApi_Model_Validator_ParamIsInt</className>
+                        <className>Demidov_CustomApi_Model_Validator_ProductExist</className>
+                    </validators>
+                    <handler>
+                        <className>Demidov_CustomApi_Model_ProductApi_ProductDelete</className>
+                        <properties>
+                            <integer>id</integer>
+                        </properties>
+                    </handler>
+                </productDelete>
+            </v1>
+            <v2>
+                <priceIncrease>
+                    <validators>
+                        <className>Demidov_CustomApi_Model_Validator_PriceIncreaseParams</className>
+                    </validators>
+                    <handler>
+                        <className>Demidov_CustomApi_Model_ProductApi_FixAndPercentPriceIncrease</className>
+                        <properties>
+                            <string>type_increase</string>
+                            <integer>amount</integer>
+                        </properties>
+                    </handler>
+                </priceIncrease>
+                <productDelete>
+                    <validators>
+                        <className>Demidov_CustomApi_Model_Validator_ParamIsInt</className>
+                    </validators>
+                    <handler>
+                        <className>Demidov_CustomApi_Model_ProductApi_ProductMassDelete</className>
+                        <properties>
+                            <array>ids</array>
+                        </properties>
+                    </handler>
+                </productDelete>
+            </v2>
+        </customapi_config>
     </global>
     <frontend>
         <routers>

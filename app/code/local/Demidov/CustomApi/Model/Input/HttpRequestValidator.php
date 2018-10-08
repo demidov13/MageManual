@@ -27,17 +27,17 @@ class Demidov_CustomApi_Model_Input_HttpRequestValidator
         $result = Mage::getModel('CustomApi/Input_HttpRequest_Result_ResultFactory')
             ->create('Demidov_CustomApi_Model_Input_HttpRequest_Result');
 
-        $arrUri = explode('/',trim($this->request->getUri(),'/'));
+        $arrUri = explode('/', $this->request->getUri());
         if (!preg_match('/^v[0-9]$/', $arrUri[1])) {
             $result->addError('version');
         }
-        if (!preg_match('/^[^\d]{1,30}$/', $arrUri[2]) || !preg_match('/^.{1,30}$/', $arrUri[3])) {
+        if (!preg_match('/^[^\d]{1,30}$/', $arrUri[2]) || !preg_match('/^[^\d]{1,30}$/', $arrUri[3]) || $arrUri[4]) {
             $result->addError('command');
         }
 
         $headers = $this->request->getHeaders();
-        if (!$headers['token']) {
-            $result->addError('token');
+        if (!$headers['token_bearer']) {
+            $result->addError('token_bearer');
         }
 
         if(!Mage::app()->getRequest()->isPost()) {
