@@ -16,6 +16,16 @@
                 <class>Demidov_CustomApi_Block</class>
             </CustomApi>
         </blocks>
+        <events>
+            <controller_front_init_routers>
+                <observers>
+                    <CustomApi>
+                        <class>Demidov_CustomApi_Controller_Router</class>
+                        <method>initControllerRouters</method>
+                    </CustomApi>
+                </observers>
+            </controller_front_init_routers>
+        </events>
         <models>
             <CustomApi>
                 <class>Demidov_CustomApi_Model</class>
@@ -45,6 +55,17 @@
             <email_recipient>itdemidov@ukr.net</email_recipient>
         </customapi_mail_settings>
     </global>
+    <frontend>
+        <routers>
+            <CustomApi>
+                <use>standard</use>
+                <args>
+                    <module>Demidov_CustomApi</module>
+                    <frontName>customapi</frontName>
+                </args>
+            </CustomApi>
+        </routers>
+    </frontend>
     <admin>
         <routers>
             <CustomApi>

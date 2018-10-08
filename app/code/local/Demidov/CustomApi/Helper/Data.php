@@ -1,6 +1,18 @@
 <?php
 class Demidov_CustomApi_Helper_Data extends Mage_Core_Helper_Abstract
 {
+
+//    public function isJson($string)
+//    {
+//        return is_string($string) && is_array(json_decode($string, true)) && (json_last_error() == JSON_ERROR_NONE) ? true : false;
+//    }
+//
+//    public function isXml($string)
+//    {
+//        libxml_use_internal_errors(true);
+//        return simplexml_load_string($string) ? true : false;
+//    }
+
     public function getMetaData()
     {
         $metaData = [];
