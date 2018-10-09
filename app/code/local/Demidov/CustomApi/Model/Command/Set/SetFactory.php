@@ -11,13 +11,9 @@ class Demidov_CustomApi_Model_Command_Set_SetFactory
 {
     public function create($className, $version)
     {
-        $apiConfig = Mage::getConfig()->getNode('global/customapi_config')->asArray();
-        foreach ($apiConfig as $configVersion => $commands) {
-            if ($configVersion == $version) {
-                return new $className($version, $commands);
-            }
+        if (Mage::getConfig()->getNode("global/customapi_config/$version")) {
+            return new $className($version);
         }
-
         throw new Exception('API version '.$version.' not found');
     }
 }

@@ -58,24 +58,44 @@
             <v1>
                 <priceIncrease>
                     <validators>
-                        <className>Demidov_CustomApi_Model_Validator_ParamIsInt</className>
+                        <className_1>Demidov_CustomApi_Model_Validator_FormatOfParam</className_1>
+                        <className_2>Demidov_CustomApi_Model_Validator_ValueExist</className_2>
                     </validators>
                     <handler>
-                        <className>Demidov_CustomApi_Model_ProductApi_FixPriceIncrease</className>
+                        <className>Demidov_CustomApi_Model_ProductApi_FixedPriceIncrease</className>
                         <properties>
-                            <integer>sum</integer>
+                            <types>
+                                <amount>integer</amount>
+                            </types>
+                            <min_values>
+                                <amount>1</amount>
+                            </min_values>
+                            <max_values>
+                                <amount>999999999</amount>
+                            </max_values>
+                            <count_of_params>1</count_of_params>
                         </properties>
                     </handler>
                 </priceIncrease>
                 <productDelete>
                     <validators>
-                        <className>Demidov_CustomApi_Model_Validator_ParamIsInt</className>
-                        <className>Demidov_CustomApi_Model_Validator_ProductExist</className>
+                        <className_1>Demidov_CustomApi_Model_Validator_FormatOfParam</className_1>
+                        <className_2>Demidov_CustomApi_Model_Validator_ProductExist</className_2>
+                        <className_3>Demidov_CustomApi_Model_Validator_ValueExist</className_3>
                     </validators>
                     <handler>
                         <className>Demidov_CustomApi_Model_ProductApi_ProductDelete</className>
                         <properties>
-                            <integer>id</integer>
+                            <types>
+                                <id>integer</id>
+                            </types>
+                            <min_values>
+                                <id>1</id>
+                            </min_values>
+                            <max_values>
+                                <id>999999999</id>
+                            </max_values>
+                            <count_of_params>1</count_of_params>
                         </properties>
                     </handler>
                 </productDelete>
@@ -83,29 +103,56 @@
             <v2>
                 <priceIncrease>
                     <validators>
-                        <className>Demidov_CustomApi_Model_Validator_PriceIncreaseParams</className>
+                        <className_1>Demidov_CustomApi_Model_Validator_FormatOfParam</className_1>
+                        <className_2>Demidov_CustomApi_Model_Validator_ValueExist</className_2>
                     </validators>
                     <handler>
-                        <className>Demidov_CustomApi_Model_ProductApi_FixAndPercentPriceIncrease</className>
+                        <className>Demidov_CustomApi_Model_ProductApi_FixedAndPercentPriceIncrease</className>
                         <properties>
-                            <string>type_increase</string>
-                            <integer>amount</integer>
+                            <types>
+                                <amount>integer</amount>
+                                <type_increase>string</type_increase>
+                            </types>
+                            <min_values>
+                                <amount>1</amount>
+                            </min_values>
+                            <max_values>
+                                <amount>999999999</amount>
+                            </max_values>
+                            <count_of_params>2</count_of_params>
+                            <valid_values>
+                                <type_increase>
+                                    <value_1>fixed</value_1>
+                                    <value_2>percent</value_2>
+                                </type_increase>
+                            </valid_values>
                         </properties>
                     </handler>
                 </priceIncrease>
                 <productDelete>
                     <validators>
-                        <className>Demidov_CustomApi_Model_Validator_ParamIsInt</className>
+                        <className_1>Demidov_CustomApi_Model_Validator_FormatOfParam</className_1>
+                        <className_2>Demidov_CustomApi_Model_Validator_ValueExist</className_2>
                     </validators>
                     <handler>
                         <className>Demidov_CustomApi_Model_ProductApi_ProductMassDelete</className>
                         <properties>
-                            <array>ids</array>
+                            <types>
+                                <ids>integer</ids>
+                            </types>
+                            <min_values>
+                                <id>1</id>
+                            </min_values>
+                            <max_values>
+                                <id>999999999</id>
+                            </max_values>
+                            <count_of_params>1</count_of_params>
                         </properties>
                     </handler>
                 </productDelete>
             </v2>
         </customapi_config>
+        <!-- Custom API default config End -->
     </global>
     <frontend>
         <routers>
