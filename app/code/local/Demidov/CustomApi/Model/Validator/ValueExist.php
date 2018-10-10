@@ -1,13 +1,13 @@
 <?php
 
-class Demidov_CustomApi_Model_Validator_ValueExist
+class Demidov_CustomApi_Model_Validator_ValueExist implements Demidov_CustomApi_Model_Validator_BaseInterface
 {
     protected $properties;
     protected $params;
     protected $errorMessages = [];
     protected $isValid = true;
 
-    public function __construct($properties, $params)
+    public function __construct(array $properties, array $params)
     {
         $this->properties = $properties;
         $this->params = $params;
@@ -20,6 +20,7 @@ class Demidov_CustomApi_Model_Validator_ValueExist
                 if (isset($this->properties['min_values'][$key]) && $this->properties['min_values'][$key] > $value) {
                     $this->addErrorMessage('min_values');
                     $this->isValid = false;
+                    break;
                 }
             }
         }
@@ -29,6 +30,7 @@ class Demidov_CustomApi_Model_Validator_ValueExist
                 if (isset($this->properties['max_values'][$key]) && $this->properties['max_values'][$key] < $value) {
                     $this->addErrorMessage('max_values');
                     $this->isValid = false;
+                    break;
                 }
             }
         }
@@ -39,6 +41,7 @@ class Demidov_CustomApi_Model_Validator_ValueExist
                     !in_array($value, $this->properties['valid_values'][$key])) {
                     $this->addErrorMessage('invalid_values');
                     $this->isValid = false;
+                    break;
                 }
             }
         }

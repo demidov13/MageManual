@@ -22,8 +22,11 @@ class Demidov_CustomApi_Model_Command_Validator
         foreach ($this->validators as $validatorName) {
             $validator = Mage::getModel('CustomApi/Validator_Factory_ValidatorFactory')
                 ->create($validatorName, $this->properties, $this->params);
-            if (!$validator->validate()) {
-                $result->addError($validator->getErrorMessages());
+
+            if ($validator instanceof Demidov_CustomApi_Model_Validator_BaseInterface) {
+                if (!$validator->validate()) {
+                    $result->addError($validator->getErrorMessages());
+                }
             }
         }
         return $result;

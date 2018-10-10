@@ -31,19 +31,6 @@ class Demidov_CustomApi_IndexController extends Mage_Core_Controller_Front_Actio
 
             $definition = $set->searchCommand($package->getCommand());
 
-//            $params = $package->getParams();
-//            foreach ($params as $key => $value) {
-//                $keyArr[] = $key;
-//                $valArr[] = $value;
-//            }
-//            $res = array_merge($keyArr, $valArr);
-//            return var_dump($res);
-
-
-//            $properties = $definition->getProperties();
-//            $res = in_array('fixed', $properties['valid_values']['type_increase']);
-//            return var_dump($res);
-
             $validator = Mage::getModel('CustomApi/Command_Validator_ValidatorFactory')
                 ->create('Demidov_CustomApi_Model_Command_Validator', $definition, $package->getParams());
             $validationResult = $validator->validate();
@@ -53,7 +40,12 @@ class Demidov_CustomApi_IndexController extends Mage_Core_Controller_Front_Actio
                 return var_dump($message);
             }
 
-            return var_dump($validationResult);
+            $processor = Mage::getModel('CustomApi/Command_Processor_ProcessorFactory')
+                ->create('Demidov_CustomApi_Model_Command_Processor', $definition->getHandler(), $package->getParams());
+
+            $response = $processor->run();
+
+            return var_dump($response);
 
         } catch (Exception $exception) {
             // TODO: Output

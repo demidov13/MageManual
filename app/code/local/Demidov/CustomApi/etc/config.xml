@@ -71,7 +71,7 @@
                                 <amount>1</amount>
                             </min_values>
                             <max_values>
-                                <amount>999999999</amount>
+                                <amount>999999</amount>
                             </max_values>
                             <count_of_params>1</count_of_params>
                         </properties>
@@ -117,7 +117,7 @@
                                 <amount>1</amount>
                             </min_values>
                             <max_values>
-                                <amount>999999999</amount>
+                                <amount>999999</amount>
                             </max_values>
                             <count_of_params>2</count_of_params>
                             <valid_values>
@@ -140,12 +140,6 @@
                             <types>
                                 <ids>integer</ids>
                             </types>
-                            <min_values>
-                                <id>1</id>
-                            </min_values>
-                            <max_values>
-                                <id>999999999</id>
-                            </max_values>
                             <count_of_params>1</count_of_params>
                         </properties>
                     </handler>

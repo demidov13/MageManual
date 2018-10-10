@@ -1,6 +1,0 @@
-<?php
-/**
- * setParams()
- * setProperties()
- * process()
- */

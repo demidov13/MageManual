@@ -1,13 +1,13 @@
 <?php
 
-class Demidov_CustomApi_Model_Validator_FormatOfParam
+class Demidov_CustomApi_Model_Validator_FormatOfParam implements Demidov_CustomApi_Model_Validator_BaseInterface
 {
     protected $properties;
     protected $params;
     protected $errorMessages = [];
     protected $isValid = true;
 
-    public function __construct($properties, $params)
+    public function __construct(array $properties, array $params)
     {
         $this->properties = $properties;
         $this->params = $params;
@@ -23,21 +23,21 @@ class Demidov_CustomApi_Model_Validator_FormatOfParam
         foreach ($this->params as $key => $value) {
 
             if (!$this->properties['types'][$key]) {
-                $this->addErrorMessage('param_not_exist');
+                if(!$this->hasErrorMessage('param_not_exist')) $this->addErrorMessage('param_not_exist');
                 $this->isValid = false;
             }
 
             if ($this->properties['types'][$key] && is_array($value)) {
                 foreach ($value as $item) {
                     if ($this->properties['types'][$key] != gettype($item)) {
-                        $this->addErrorMessage('type_of_param');
+                        if(!$this->hasErrorMessage('type_of_param')) $this->addErrorMessage('type_of_param');
                         $this->isValid = false;
                     }
                 }
             }
 
             if (!is_array($value) && $this->properties['types'][$key] != gettype($value)) {
-                $this->addErrorMessage('type_of_param');
+                if(!$this->hasErrorMessage('type_of_param')) $this->addErrorMessage('type_of_param');
                 $this->isValid = false;
             }
         }
@@ -46,6 +46,7 @@ class Demidov_CustomApi_Model_Validator_FormatOfParam
             if (!$this->params[$name]) {
                 $this->addErrorMessage('property_missing');
                 $this->isValid = false;
+                break;
             }
         }
 
@@ -60,5 +61,10 @@ class Demidov_CustomApi_Model_Validator_FormatOfParam
     public function getErrorMessages()
     {
         return $this->errorMessages;
+    }
+
+    public function hasErrorMessage($string)
+    {
+        in_array($string, $this->errorMessages) ? true : false;
     }
 }
