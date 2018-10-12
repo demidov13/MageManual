@@ -14,11 +14,13 @@ class Demidov_CustomApi_Model_Command_Processor
 
     public function run()
     {
-        $handler = Mage::getModel('CustomApi/ProductApi_Handler_HandlerFactory')
+        $handler = Mage::getModel('CustomApi/ProductApi_Handler_Factory_HandlerFactory')
             ->create($this->handlerName, $this->params);
 
-        if ($handler instanceof Demidov_CustomApi_Model_ProductApi_BaseInterface) {
+        if ($handler instanceof Demidov_CustomApi_Model_ProductApi_Handler_BaseInterface) {
             $this->result = $handler->process();
+        } else {
+            throw new Demidov_CustomApi_Model_Exception('Handler does not match the base interface');
         }
 
         return $this->result;

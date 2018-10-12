@@ -1,7 +1,4 @@
 <?php
-/**
- * 
- */
 
 class Demidov_CustomApi_Model_Command_Validator_ValidatorFactory
 {

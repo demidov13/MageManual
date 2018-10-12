@@ -1,17 +1,4 @@
 <?php
-/**
- * Проверяет правильность uri запроса, наличие token в header, наличие версии, наличие команды, 
- * формат запроса post, наличие в body json или xml формата.
- * validate()
- * Когда валидатор видит, что (к примеру) запрос передан не через post, он создает экземпляр класса Result 
- * и вызывает у него метод addError().
- * Тот, в свою очередь, создает экземпляр класса Error, проверяет методом hasError(), если ли ошибка в списке,
- * если есть, берет ее и возвращает (Error отдает message строкой).
- * 
- * Проверки всех нюансов http проверяются сразу, формируя общий ответ.
- * 
- * Именно он засовывает Result в фабрику ErrorOutputFactory для получения ответа
- */
 
 class Demidov_CustomApi_Model_Input_HttpRequestValidator
 {
@@ -29,10 +16,10 @@ class Demidov_CustomApi_Model_Input_HttpRequestValidator
 
         $arrUri = explode('/', $this->request->getUri());
         if (!preg_match('/^v[0-9]$/', $arrUri[1])) {
-            $result->addError('version');
+            $result->addError('version_format');
         }
         if (!preg_match('/^[^\d]{1,30}$/', $arrUri[2]) || !preg_match('/^[^\d]{1,30}$/', $arrUri[3]) || $arrUri[4]) {
-            $result->addError('command');
+            $result->addError('command_format');
         }
 
         $headers = $this->request->getHeaders();
@@ -46,7 +33,7 @@ class Demidov_CustomApi_Model_Input_HttpRequestValidator
 
         $body = $this->request->getBody();
             if (!$this->isJson($body, $result) && !$this->isXml($body, $result)) {
-                $result->addError('format');
+                $result->addError('data_format');
             }
 
             return $result;

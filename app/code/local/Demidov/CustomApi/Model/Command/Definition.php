@@ -1,13 +1,4 @@
 <?php
-/**
- * В фабрику этого класса попадают сырые данные о командах из конфига.
- * Это обертка над структурой информации о команде, хранящейся в конфиге.
- * getVersion()
- * getCommand()
- * getValidators()
- * getHandler()
- * getProperties()
- */
 
 class Demidov_CustomApi_Model_Command_Definition
 {

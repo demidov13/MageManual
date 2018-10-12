@@ -1,11 +1,4 @@
 <?php
-/**
- * Фабрика сета идет в конфиги сама, использует маджентовские методы, чтоб взять оттуда данные,
- * находит нужную ноду, вынимает оттуда инфу, вычитывает каждую команду и использует
- * фабрику DefinitionFactory для того, чтоб создать объект Definition.
- * addDefinition() этот метод добавляет дефинишины в объект Set, формируя тем самым из сета набор
- * дефинишинов.
- */
 
 class Demidov_CustomApi_Model_Command_Set_SetFactory
 {
@@ -14,6 +7,9 @@ class Demidov_CustomApi_Model_Command_Set_SetFactory
         if (Mage::getConfig()->getNode("global/customapi_config/$version")) {
             return new $className($version);
         }
-        throw new Exception('API version '.$version.' not found');
+
+        $dataOutput = Mage::getModel('CustomApi/Output_Type_Errors_ErrorsFactory')
+            ->create('Demidov_CustomApi_Model_Output_Type_Errors', 'API version '.$version.' not found');
+        return $dataOutput;
     }
 }

@@ -1,7 +1,4 @@
 <?php
-/**
- * Этот валидатор запускает валидаторы из корневой папки Validator
- */
 
 class Demidov_CustomApi_Model_Command_Validator
 {
@@ -20,13 +17,15 @@ class Demidov_CustomApi_Model_Command_Validator
             ->create('Demidov_CustomApi_Model_Command_Validator_Result');
 
         foreach ($this->validators as $validatorName) {
-            $validator = Mage::getModel('CustomApi/Validator_Factory_ValidatorFactory')
+            $validator = Mage::getModel('CustomApi/ProductApi_Validator_Factory_ValidatorFactory')
                 ->create($validatorName, $this->properties, $this->params);
 
-            if ($validator instanceof Demidov_CustomApi_Model_Validator_BaseInterface) {
+            if ($validator instanceof Demidov_CustomApi_Model_ProductApi_Validator_BaseInterface) {
                 if (!$validator->validate()) {
                     $result->addError($validator->getErrorMessages());
                 }
+            } else {
+                throw new Demidov_CustomApi_Model_Exception('The validator does not match the base interface.');
             }
         }
         return $result;

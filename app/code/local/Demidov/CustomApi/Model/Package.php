@@ -1,9 +1,4 @@
 <?php
-/**
- * getVersion()
- * getCommand()
- * getParams()
- */
 
 class Demidov_CustomApi_Model_Package
 {

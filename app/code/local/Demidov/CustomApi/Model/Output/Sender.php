@@ -1,14 +1,28 @@
 <?php
-/**
- * Принимает в конструктор type ответа и format ответа (как енум параметр 2/1/0). Это достается с Result HttpRequest.
- * send() - принимает в качестве параметра объект Output/Type/Interface (т.е. одну из его реализаций),
- * затем дергает $type->toArray(), превращая ответ в массив, а потом создает объект Format (json или xml или flat), 
- * вызывая у него метод ToString(), принимающий в качестве аргумента массив, созданный с помощью toArray().
- * ToString() возвращает готовый ответ в виде Json или XML или flat (строка с ошибкой).
- * Далее, мы отправляем api ответ ob_get_clean, Mage::getRespons()->setBody()
- * 
- * В него идет Errors или Base (проверяется, чтоб был наследником интерфейса)
- * 
- * Фабрика сендера, в зависимости от принятого формата, сама создаст объект Format и передаст уже готовый
- * объект внутрь объекта Сендер. Сам сендер не будет создавать объект.
- */
+
+class Demidov_CustomApi_Model_Output_Sender
+{
+    protected $typeInstance;
+    protected $formatInstance;
+
+    public function __construct($typeInstance, $formatInstance)
+    {
+        if($typeInstance instanceof Demidov_CustomApi_Model_Output_Type_TypeInterface) {
+            $this->typeInstance = $typeInstance;
+        } else {
+            throw new Demidov_CustomApi_Model_Exception('Error while generating the response. Invalid instance OutputType');
+        }
+
+        if ($formatInstance instanceof Demidov_CustomApi_Model_Output_Formator_FormatInterface) {
+            $this->formatInstance = $formatInstance;
+        } else {
+            throw new Demidov_CustomApi_Model_Exception('Error while generating the response. Invalid instance OutputFormat');
+        }
+    }
+
+    public function send()
+    {
+        $response = $this->formatInstance->toString($this->typeInstance->toArray());
+        return $response;
+    }
+}

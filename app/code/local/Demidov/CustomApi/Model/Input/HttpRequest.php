@@ -1,12 +1,4 @@
 <?php
-/**
- * Должен сохранять в себе всю информацию, полученную api запросом, чтоб потом отдать ее в PackageFactory
- * getUri()
- * getDomen()
- * getHeaders()
- * getBody()
- * isPost()
- */
 
 class Demidov_CustomApi_Model_Input_HttpRequest
 {

@@ -9,4 +9,12 @@ class Demidov_CustomApi_Model_Cron
             $log->delete();
         }
     }
+
+    public function api_error_clear_log()
+    {
+        $logs = Mage::getModel('CustomApi/ErrorLog')->getCollection();
+        foreach ($logs as $log) {
+            $log->delete();
+        }
+    }
 }

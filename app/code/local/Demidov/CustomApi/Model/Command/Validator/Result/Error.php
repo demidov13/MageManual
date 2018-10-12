@@ -15,14 +15,11 @@ class Demidov_CustomApi_Model_Command_Validator_Result_Error
 
     public function checkErrors($errors)
     {
-        $message = '';
         foreach ($this->entities as $key => $value) {
-            foreach ($errors as $error) {
-                if ($key == $error) {
-                    $message .= ' '.$value.'.';
-                }
+            if (in_array($key, $errors)) {
+                return true;
             }
         }
-        return trim($message,' ');
+        return false;
     }
 }

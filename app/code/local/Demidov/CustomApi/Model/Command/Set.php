@@ -1,8 +1,4 @@
 <?php
-/**
- * Набор команд, набор definition-ов.
- * 
- */
 
 class Demidov_CustomApi_Model_Command_Set
 {
@@ -19,6 +15,9 @@ class Demidov_CustomApi_Model_Command_Set
             return Mage::getModel('CustomApi/Command_Definition_DefinitionFactory')
                 ->create('Demidov_CustomApi_Model_Command_Definition', $this->version, $command);
         }
-        throw new Exception('API command '.$command.' not found');
+
+        $dataOutput = Mage::getModel('CustomApi/Output_Type_Errors_ErrorsFactory')
+            ->create('Demidov_CustomApi_Model_Output_Type_Errors', 'API command '.$command.' not found');
+        return $dataOutput;
     }
 }
