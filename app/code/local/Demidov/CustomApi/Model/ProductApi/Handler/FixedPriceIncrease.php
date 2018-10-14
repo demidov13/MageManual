@@ -30,12 +30,12 @@ class Demidov_CustomApi_Model_ProductApi_Handler_FixedPriceIncrease
 
         foreach ($collectionSimple as $product) {
             $price = $product->getData('price');
-            $price =  $price + $this->amount;
+            $price += $this->amount;
             $product->setData('price', $price);
             $info['id'] = $product->getData('entity_id');
             $info['sku'] = $product->getData('sku');
             $info['name'] = $product->getData('name');
-            $info['price'] = $product->getData('price');
+            $info['price'] = round($product->getData('price'), 2);
             $this->result[] = $info;
         }
 

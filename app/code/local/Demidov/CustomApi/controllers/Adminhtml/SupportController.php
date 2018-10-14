@@ -15,11 +15,9 @@ class Demidov_CustomApi_Adminhtml_SupportController extends Mage_Adminhtml_Contr
         if ($data = $this->getRequest()->getPost()) {
 
             try {
-                $model = Mage::getModel('CustomApi/support');
-                $model->setData($data)
-                    ->setMetaData(Mage::helper('CustomApi')->getMetaData())
-                    ->setCreated(Mage::app()->getLocale()->date());
-                $model->save();
+                $metaData = Mage::helper('CustomApi')->getMetaData();
+                $support = Mage::getModel('CustomApi/log_support');
+                $support->logging($data, $metaData);
 
                 Mage::helper('CustomApi')->sendMail($data['name'], $data['description']);
 

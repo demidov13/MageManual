@@ -21,7 +21,7 @@ class Demidov_CustomApi_Controller_Router extends Mage_Core_Controller_Varien_Ro
         $identifier = trim($request->getPathInfo(), '/');
         if (strpos($identifier, 'customapi') !== false) {
             $request->setModuleName('customapi')
-                ->setControllerName('index')
+                ->setControllerName('api')
                 ->setActionName('index');
 
             $request->setAlias(Mage_Core_Model_Url_Rewrite::REWRITE_REQUEST_PATH_ALIAS, $identifier);

@@ -10,13 +10,13 @@ $table = $installer->getConnection()
         'nullable'  => false,
         'primary'   => true,
     ))
-    ->addColumn('name', Varien_Db_Ddl_Table::TYPE_TEXT, '255', array(
+    ->addColumn('name', Varien_Db_Ddl_Table::TYPE_VARCHAR, '255', array(
         'nullable'  => false,
     ))
     ->addColumn('description', Varien_Db_Ddl_Table::TYPE_TEXT, null, array(
         'nullable'  => false,
     ))
-    ->addColumn('meta', Varien_Db_Ddl_Table::TYPE_TEXT, null, array(
+    ->addColumn('metadata', Varien_Db_Ddl_Table::TYPE_TEXT, null, array(
         'nullable'  => false,
     ))
     ->addColumn('created', Varien_Db_Ddl_Table::TYPE_DATETIME, null, array(
@@ -32,7 +32,7 @@ $table = $installer->getConnection()
         'nullable'  => false,
         'primary'   => true,
     ))
-    ->addColumn('bearer_name', Varien_Db_Ddl_Table::TYPE_TEXT, '255', array(
+    ->addColumn('bearer_name', Varien_Db_Ddl_Table::TYPE_VARCHAR, '255', array(
         'nullable'  => false,
     ))
     ->addColumn('token', Varien_Db_Ddl_Table::TYPE_TEXT, null, array(

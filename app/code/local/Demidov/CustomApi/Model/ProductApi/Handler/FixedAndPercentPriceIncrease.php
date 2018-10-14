@@ -35,7 +35,8 @@ class Demidov_CustomApi_Model_ProductApi_Handler_FixedAndPercentPriceIncrease
 
             foreach ($collectionSimple as $product) {
                 $price = $product->getData('price');
-                $price =  $price + $this->amount;
+                $price += $this->amount;
+                $price = round($price, 2);
                 $product->setData('price', $price);
                 $info['id'] = $product->getData('entity_id');
                 $info['sku'] = $product->getData('sku');
@@ -53,7 +54,8 @@ class Demidov_CustomApi_Model_ProductApi_Handler_FixedAndPercentPriceIncrease
         } else {
             foreach ($collectionSimple as $product) {
                 $price = $product->getData('price');
-                $price =  $price + $price * $this->amount / 100;
+                $price += $price * $this->amount / 100;
+                $price = round($price, 2);
                 $product->setData('price', $price);
                 $info['id'] = $product->getData('entity_id');
                 $info['sku'] = $product->getData('sku');

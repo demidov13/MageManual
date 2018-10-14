@@ -9,7 +9,7 @@ class Demidov_CustomApi_Model_Output_Formator_Xml
 
         if ($_xml === null) {
             $_xml = new SimpleXMLElement
-            ($rootElement !== null ? $rootElement : "<?xml version=\'1.0\' encoding=\'UTF-8\'?><root/>");
+            ($rootElement !== null ? $rootElement : "<root/>");
         }
 
         foreach ($arrayResponse as $key => $value) {

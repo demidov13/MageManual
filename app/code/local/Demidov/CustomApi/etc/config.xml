@@ -6,6 +6,36 @@
         </Demidov_CustomApi>
     </modules>
     <global>
+        <models>
+            <CustomApi>
+                <class>Demidov_CustomApi_Model</class>
+                <resourceModel>CustomApi_resource</resourceModel>
+            </CustomApi>
+            <CustomApi_resource>
+                <class>Demidov_CustomApi_Model_Resource</class>
+                <entities>
+                    <support_log>
+                        <table>customapi_support_log</table>
+                    </support_log>
+                    <token_bearer>
+                        <table>customapi_token_bearer</table>
+                    </token_bearer>
+                    <error_log>
+                        <table>customapi_error_log</table>
+                    </error_log>
+                    <successful_request>
+                        <table>customapi_successful_request</table>
+                    </successful_request>
+                </entities>
+            </CustomApi_resource>
+        </models>
+        <resources>
+            <CustomApi_setup>
+                <setup>
+                    <module>Demidov_CustomApi</module>
+                </setup>
+            </CustomApi_setup>
+        </resources>
         <helpers>
             <CustomApi>
                 <class>Demidov_CustomApi_Helper</class>
@@ -26,37 +56,7 @@
                 </observers>
             </controller_front_init_routers>
         </events>
-        <models>
-            <CustomApi>
-                <class>Demidov_CustomApi_Model</class>
-                <resourceModel>CustomApi_resource</resourceModel>
-            </CustomApi>
-            <CustomApi_resource>
-                <class>Demidov_CustomApi_Model_Resource</class>
-                <entities>
-                    <support_log>
-                        <table>customapi_support_log</table>
-                    </support_log>
-                    <token_bearer>
-                        <table>customapi_token_bearer</table>
-                    </token_bearer>
-                    <error_log>
-                        <table>customapi_error_log</table>
-                    </error_log>
-                </entities>
-            </CustomApi_resource>
-        </models>
-        <resources>
-            <CustomApi_setup>
-                <setup>
-                    <module>Demidov_CustomApi</module>
-                </setup>
-            </CustomApi_setup>
-        </resources>
         <!-- Custom API default config  -->
-        <customapi_mail_settings>
-            <email_recipient>itdemidov@ukr.net</email_recipient>
-        </customapi_mail_settings>
         <customapi_config>
             <v1>
                 <priceIncrease>
@@ -187,43 +187,42 @@
                 </children>
             </CustomApi>
         </menu>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <custom_api_general module="CustomApi">
+                                            <title>Custom API General Settings</title>
+                                        </custom_api_general>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
     </adminhtml>
-    <acl>
-        <resources>
-            <admin>
-                <children>
-                    <system>
-                        <children>
-                            <config>
-                                <children>
-                                    <CustomApi>
-                                        <title>Custom API</title>
-                                    </CustomApi>
-                                </children>
-                            </config>
-                        </children>
-                    </system>
-                    <CustomApi>
-                        <children>
-                            <Version1>
-                                <title>Version 1</title>
-                                <sort_order>1</sort_order>
-                            </Version1>
-                            <Version2>
-                                <title>Version 2</title>
-                                <sort_order>2</sort_order>
-                            </Version2>
-                        </children>
-                    </CustomApi>
-                </children>
-            </admin>
-        </resources>
-    </acl>
+    <default>
+        <custom_api_general>
+            <support>
+                <support_email>itdemidov@ukr.net</support_email>
+            </support>
+            <log>
+                <request>1</request>
+                <error>1</error>
+            </log>
+        </custom_api_general>
+    </default>
     <crontab>
         <jobs>
             <api_support_clear_log>
                 <schedule>
-                    <cron_expr>0 0 * * * *</cron_expr>
+                    <cron_expr>0 0 * * * </cron_expr>
                 </schedule>
                 <run>
                     <model>CustomApi/cron::api_support_clear_log</model>
@@ -231,12 +230,20 @@
             </api_support_clear_log>
             <api_error_clear_log>
                 <schedule>
-                    <cron_expr>0 */72 * * *</cron_expr>
+                    <cron_expr>0 0 */3 * *</cron_expr>
                 </schedule>
                 <run>
                     <model>CustomApi/cron::api_error_clear_log</model>
                 </run>
             </api_error_clear_log>
+            <api_request_clear_log>
+                <schedule>
+                    <cron_expr>0 0 */7 * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>CustomApi/cron::api_request_clear_log</model>
+                </run>
+            </api_request_clear_log>
         </jobs>
     </crontab>
 </config>
